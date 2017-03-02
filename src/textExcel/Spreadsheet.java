@@ -3,8 +3,17 @@ package textExcel;
 // Update this file with your own code.
 
 public class Spreadsheet implements Grid
-{
-
+{	
+	int rows;
+	int columns;
+	
+	//Spreadsheet Constructor
+	public Spreadsheet (int rows, int columns) {
+		this.rows = rows;
+		this.columns = columns;
+		//EmptyCell [] [] textexcell = new EmptyCell [rows] [columns];
+	}
+	
 	@Override
 	public String processCommand(String command)
 	{
@@ -16,14 +25,14 @@ public class Spreadsheet implements Grid
 	public int getRows()
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		return this.rows;
 	}
 
 	@Override
 	public int getCols()
 	{
 		// TODO Auto-generated method stub
-		return 0;
+		return this.columns;
 	}
 
 	@Override

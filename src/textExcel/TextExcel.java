@@ -10,9 +10,12 @@ public class TextExcel
 
 	public static void main(String[] args)
 	{
-	    Scanner 
-	    Spreadsheet TextExcel = new Spreadsheet();
-	    while (input)
+	    Scanner scanner = new Scanner (System.in);
+	    String input = scanner.nextLine();
+	    Spreadsheet textexcell = new Spreadsheet (12,20);
+	    while (input != "quit") {
+	    	processCommand(input);
+	    }
 //	    TextExcel.java: A class with a main method that constructs a
 //
 //	    Spreadsheet, and has the command loop (reading commands, calling 
