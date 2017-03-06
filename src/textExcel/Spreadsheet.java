@@ -8,9 +8,9 @@ public class Spreadsheet implements Grid
 	int columns;
 	
 	//Spreadsheet Constructor
-	public Spreadsheet (int rows, int columns) {
-		this.rows = rows;
-		this.columns = columns;
+	public Spreadsheet () {
+		rows = 20;
+		columns = 12;
 		//EmptyCell [] [] textexcell = new EmptyCell [rows] [columns];
 	}
 	
@@ -18,7 +18,7 @@ public class Spreadsheet implements Grid
 	public String processCommand(String command)
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return command;
 	}
 
 	@Override
