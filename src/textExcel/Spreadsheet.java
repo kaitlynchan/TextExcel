@@ -4,14 +4,11 @@ package textExcel;
 
 public class Spreadsheet implements Grid
 {	
-	int rows;
-	int columns;
+	
 	
 	//Spreadsheet Constructor
 	public Spreadsheet () {
-		rows = 20;
-		columns = 12;
-		//EmptyCell [] [] textexcell = new EmptyCell [rows] [columns];
+		EmptyCell [] [] textexcell = new EmptyCell [20] [12];
 	}
 	
 	@Override
@@ -25,14 +22,14 @@ public class Spreadsheet implements Grid
 	public int getRows()
 	{
 		// TODO Auto-generated method stub
-		return this.rows;
+		return 20;
 	}
 
 	@Override
 	public int getCols()
 	{
 		// TODO Auto-generated method stub
-		return this.columns;
+		return 12;
 	}
 
 	@Override
@@ -46,7 +43,7 @@ public class Spreadsheet implements Grid
 	public String getGridText()
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
 
 }
