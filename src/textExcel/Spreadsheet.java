@@ -56,35 +56,23 @@ public class Spreadsheet implements Grid
 
 	@Override
 	public String getGridText()
-	{	
-		String fulltext;
+	{		
 		String toptext = "   ";
 		for (char c = 'A'; c <= 'L';c++){
-			toptext += "|" + c;
-			for (int i = 0; i < 9; i++){
-				toptext += " ";
-			}
+			toptext += "|" + c + "         ";	
 		}
 		toptext += "|";
 		
-		fulltext = "\n";
-		for (int j = 0; j < 9; j++ ){
-			fulltext += (j+1) + "  |";
+		String fulltext = "\n";
+		
+		for (int j = 0; j < 20; j++ ){
+			fulltext += ((j+1) + "   ").substring(0, 3);
+			fulltext += "|";
 			for (int k = 0; k < 12; k++){
 				fulltext += textexcell[k][j].abbreviatedCellText() + "|";
-			}
-			
+			}			
 			fulltext += "\n";
 		}
-		for (int k = 9; k < 20; k++){
-			fulltext += (k+1) + " |";
-			for (int l = 0; l < 12; l++){
-				fulltext += textexcell[l] [k].abbreviatedCellText() + "|";
-			}
-			fulltext += "\n";
-		}
-		// TODO Auto-generated method stub string containing the entire sheet grid in the form described in the spec.
-		
 		return toptext+fulltext;
 	}
 
