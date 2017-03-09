@@ -21,15 +21,49 @@ public class Spreadsheet implements Grid
 	public String processCommand(String command)
 	{
 		// TODO Auto-generated method stub split
-		String [] arr = command.split(" ");
+//		Implement enough of the processCommand method on your
+//
+//		Spreadsheet class to handle the following four commands:
+//
+//		o cell inspection (e.g., A1). This should return the value at that cell; 
+//
+//		see above for examples.
+//
+//		o assignment to string values (e.g., A1 = “Hello”). This should 
+//
+//		return the String of the entire sheet (reflecting the new cell 
+//
+//		assignment), as returned by getGridText().
+//
+//		o clearing the entire sheet (e.g., clear). This should return the 
+//
+//		String of the entire sheet (reflecting the clear command), as 
+//
+//		returned by getGridText().
+//
+//		o clearing a particular cell (e.g., clear A1). This should return the 
+//
+//		String of the  entire sheet (reflecting the clear cell command), as 
+//
+//		returned by GetGridText().
+//
+//		Please break functionality up into different methods as appropriate.
 		
-		if (arr.length > 2){
-			
+		String [] input = command.split(" ",3);
+		
+		if (input[0].equals("clear")){
+			// clear cell
 			
 		}
-		if (arr[0].equals("clear")){
-			
+		
+		else if (input.length > 2){
+			//assign value
 		}
+		
+		else {
+			//inspect cell
+		}
+		
 		return command;
 	}
 
@@ -49,9 +83,10 @@ public class Spreadsheet implements Grid
 
 	@Override
 	public Cell getCell(Location loc)
-	{
-		// TODO Auto-generated method stub
-		return null;
+	{	
+		int row = loc.getRow();
+		int column = loc.getCol();
+		return textexcell [row] [column];
 	}
 
 	@Override
