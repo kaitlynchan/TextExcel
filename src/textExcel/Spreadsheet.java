@@ -46,7 +46,7 @@ public class Spreadsheet implements Grid
 	public String getGridText()
 	{
 		// TODO Auto-generated method stub
-		return null;
+		return ";
 	}
 
 }
