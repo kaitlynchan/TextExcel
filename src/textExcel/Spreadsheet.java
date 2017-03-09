@@ -4,20 +4,32 @@ package textExcel;
 
 public class Spreadsheet implements Grid
 {	
-	int rows;
-	int columns;
 	
+	private Cell [] [] textexcell;
 	//Spreadsheet Constructor
 	public Spreadsheet () {
-		rows = 20;
-		columns = 12;
-		//EmptyCell [] [] textexcell = new EmptyCell [rows] [columns];
+		textexcell = new Cell [12] [20];
+		for (int i = 0; i < 12; i++){
+			for (int j = 0; j< 20; j++){
+				textexcell [i][j] = new EmptyCell();
+			}
+		}
+			//fill with empthycells
 	}
 	
 	@Override
 	public String processCommand(String command)
 	{
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stub split
+		String [] arr = command.split(" ");
+		
+		if (arr.length > 2){
+			
+			
+		}
+		if (arr[0].equals("clear")){
+			
+		}
 		return command;
 	}
 
@@ -25,14 +37,14 @@ public class Spreadsheet implements Grid
 	public int getRows()
 	{
 		// TODO Auto-generated method stub
-		return this.rows;
+		return 20;
 	}
 
 	@Override
 	public int getCols()
 	{
 		// TODO Auto-generated method stub
-		return this.columns;
+		return 12;
 	}
 
 	@Override
@@ -44,9 +56,36 @@ public class Spreadsheet implements Grid
 
 	@Override
 	public String getGridText()
-	{
-		// TODO Auto-generated method stub
-		return null;
+	{	
+		String fulltext;
+		String toptext = "   ";
+		for (char c = 'A'; c <= 'L';c++){
+			toptext += "|" + c;
+			for (int i = 0; i < 9; i++){
+				toptext += " ";
+			}
+		}
+		toptext += "|";
+		
+		fulltext = "\n";
+		for (int j = 0; j < 9; j++ ){
+			fulltext += (j+1) + "  |";
+			for (int k = 0; k < 12; k++){
+				fulltext += textexcell[k][j].abbreviatedCellText() + "|";
+			}
+			
+			fulltext += "\n";
+		}
+		for (int k = 9; k < 20; k++){
+			fulltext += (k+1) + " |";
+			for (int l = 0; l < 12; l++){
+				fulltext += textexcell[l] [k].abbreviatedCellText() + "|";
+			}
+			fulltext += "\n";
+		}
+		// TODO Auto-generated method stub string containing the entire sheet grid in the form described in the spec.
+		
+		return toptext+fulltext;
 	}
 
 }
