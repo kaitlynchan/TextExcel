@@ -1,7 +1,11 @@
 package textExcel;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+import textExcel.TestsALL.TestLocation;
 
 // Update this file with your own code. 
 public class TextExcel
@@ -12,8 +16,7 @@ public class TextExcel
 		
 	    Scanner scanner = new Scanner (System.in);
 	    String input = scanner.nextLine();
-	    Spreadsheet sheet = new Spreadsheet ();
-	    System.out.println(sheet.getGridText());
+	    Spreadsheet sheet = new Spreadsheet (); 
 	    while (!input.equalsIgnoreCase("quit")) {
 	    	System.out.println(sheet.processCommand(input));
 	    	input = scanner.nextLine();

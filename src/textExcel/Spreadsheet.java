@@ -20,51 +20,25 @@ public class Spreadsheet implements Grid
 	@Override
 	public String processCommand(String command)
 	{
-		// TODO Auto-generated method stub split
-//		Implement enough of the processCommand method on your
-//
-//		Spreadsheet class to handle the following four commands:
-//
-//		o cell inspection (e.g., A1). This should return the value at that cell; 
-//
-//		see above for examples.
-//
-//		o assignment to string values (e.g., A1 = “Hello”). This should 
-//
-//		return the String of the entire sheet (reflecting the new cell 
-//
-//		assignment), as returned by getGridText().
-//
-//		o clearing the entire sheet (e.g., clear). This should return the 
-//
-//		String of the entire sheet (reflecting the clear command), as 
-//
-//		returned by getGridText().
-//
-//		o clearing a particular cell (e.g., clear A1). This should return the 
-//
-//		String of the  entire sheet (reflecting the clear cell command), as 
-//
-//		returned by GetGridText().
-//
-//		Please break functionality up into different methods as appropriate.
-		
 		String [] input = command.split(" ",3);
 		
-		if (input[0].equals("clear")){
+		if (input[0].toLowerCase().equals("clear")){
 			// clear cell
-			
+			clearCell(input);
+			return getGridText();
 		}
 		
 		else if (input.length > 2){
 			//assign value
+			setCell(input);
+			return getGridText();
 		}
 		
 		else {
 			//inspect cell
+			SpreadsheetLocation placeholder = new SpreadsheetLocation(input[0].toUpperCase());
+			return getCell(placeholder).fullCellText();
 		}
-		
-		return command;
 	}
 
 	@Override
@@ -84,9 +58,7 @@ public class Spreadsheet implements Grid
 	@Override
 	public Cell getCell(Location loc)
 	{	
-		int row = loc.getRow();
-		int column = loc.getCol();
-		return textexcell [row] [column];
+		return textexcell [loc.getCol()] [loc.getRow()];
 	}
 
 	@Override
@@ -97,9 +69,7 @@ public class Spreadsheet implements Grid
 			toptext += "|" + c + "         ";	
 		}
 		toptext += "|";
-		
-		String fulltext = "\n";
-		
+		String fulltext = "\n";		
 		for (int j = 0; j < 20; j++ ){
 			fulltext += ((j+1) + "   ").substring(0, 3);
 			fulltext += "|";
@@ -110,5 +80,27 @@ public class Spreadsheet implements Grid
 		}
 		return toptext+fulltext;
 	}
-
+	
+	public void clearCell (String [] input){
+		if (input.length > 1){
+			SpreadsheetLocation placeholder = new SpreadsheetLocation(input[1].toUpperCase());
+			textexcell [placeholder.getCol()] [placeholder.getRow()] = new EmptyCell ();
+			
+		}
+		else {
+			for (int j = 0; j < 20; j++ ){
+				for (int k = 0; k < 12; k++){
+					textexcell[k][j] = new EmptyCell();
+				}			
+			}
+		}
+	}
+	
+	public void setCell (String [] input){
+		SpreadsheetLocation placeholder = new SpreadsheetLocation(input[0].toUpperCase());
+		String words = input[2].substring(1, (input[2].length()-1));
+		textexcell [placeholder.getCol()] [placeholder.getRow()] = new TextCell (words);
+	}
+	
+	
 }
