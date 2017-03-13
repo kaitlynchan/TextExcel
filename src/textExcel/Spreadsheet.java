@@ -19,9 +19,13 @@ public class Spreadsheet implements Grid
 	
 	@Override
 	public String processCommand(String command)
-	{
-		String [] input = command.split(" ",3);
+	{	
+		if (command.length()==0){
+			return "";
+		}
 		
+		String [] input = command.split(" ",3);
+
 		if (input[0].toLowerCase().equals("clear")){
 			// clear cell
 			clearCell(input);
@@ -85,7 +89,6 @@ public class Spreadsheet implements Grid
 		if (input.length > 1){
 			SpreadsheetLocation placeholder = new SpreadsheetLocation(input[1].toUpperCase());
 			textexcell [placeholder.getCol()] [placeholder.getRow()] = new EmptyCell ();
-			
 		}
 		else {
 			for (int j = 0; j < 20; j++ ){

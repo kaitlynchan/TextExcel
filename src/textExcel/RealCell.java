@@ -13,5 +13,9 @@ public class RealCell implements Cell {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	//public double getDoubleValue(){
+		//return 4.5;
+	//}
 
 }
