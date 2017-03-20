@@ -4,14 +4,14 @@ public class FormulaCell extends RealCell implements Cell {
 	
 	private String words;
 	
-	public FormulaCell (String words){
+	public FormulaCell (String words){ //not functional yet
 		super (words);
 		this.words = words;
 	}
 	
 	@Override
 	public String abbreviatedCellText() {
-		// TODO Auto-generated method stub
+
 		String abrv = (words);
 		abrv += "          ";
 		return abrv.substring(0,10);
@@ -26,6 +26,4 @@ public class FormulaCell extends RealCell implements Cell {
 	public double GetValue (String words){
 		return Double.parseDouble(words);
 	}
-
-
 }

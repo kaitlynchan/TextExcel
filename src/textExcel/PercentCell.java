@@ -11,7 +11,6 @@ private String words;
 	
 	@Override
 	public String abbreviatedCellText() {
-		// TODO Auto-generated method stub
 		String abrv = words.substring(0, words.indexOf("."));
 		abrv += "%         ";
 		return abrv.substring(0,10);
@@ -19,14 +18,12 @@ private String words;
 
 	@Override
 	public String fullCellText() {
-		// TODO Auto-generated method stub
+
 		return GetValue(words)+"";
 	}
 	
 	public double GetValue (String words){
-		return Double.parseDouble(words.substring(0, words.length()-1))/100;
+		return Double.parseDouble(words.substring(0, words.length()-1))/100; //converts percent to double
 		
 	}
-
-
 }

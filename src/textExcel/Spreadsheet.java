@@ -6,8 +6,10 @@ import java.io.*;
 
 public class Spreadsheet implements Grid
 {	
+	//create array of Cell objects called textexcell
 	
 	private Cell [] [] textexcell;
+	
 	//Spreadsheet Constructor
 	public Spreadsheet () {
 		textexcell = new Cell [12] [20];
@@ -16,46 +18,38 @@ public class Spreadsheet implements Grid
 				textexcell [i][j] = new EmptyCell();
 			}
 		}
-			//fill with empthycells
 	}
 	
 	@Override
 	public String processCommand(String command)
 	{	
-		
-		
-		if (command.length()==0){
+
+		if (command.length()==0){ //if no command
 			return "";
 		}
 		
-		String [] input = command.split(" ",3);
+		String [] input = command.split(" ",3); //divide up command input into an array
 
-		if (!(command.indexOf("save")<0)){
-			saveSpreadsheet(input[1]);
-			return "saved to: " + input[1];
-
+		if (!(command.indexOf("save")<0)){ //save the spreadsheet
+			
+			return saveSpreadsheet(input[1]) + "\n"+ "saved to: " + input[1];
 		}
 		
-		if (!(command.indexOf("open")<0)){
-			openSpreadsheet(input[1]);
-			return "opened from: " + input[1];
-
+		if (!(command.indexOf("open")<0)){ //open up the spreadsheet
+			return openSpreadsheet(input[1]) + "\n" + "opened from: " + input[1];
 		}
 	
-		if (input[0].toLowerCase().equals("clear")){
-			// clear cell
+		if (input[0].toLowerCase().equals("clear")){ //run the clearCell method
 			clearCell(input);
 			return getGridText();
 		}
 		
-		else if (input.length > 2){
-			//assign value
+		else if (input.length > 2){ //run the setCell method to assign value
 			setCell(input);
 			return getGridText();
 		}
 		
-		else {
-			//inspect cell
+		else { //run the getCell method to inspect cell
 			SpreadsheetLocation placeholder = new SpreadsheetLocation(input[0].toUpperCase());
 			return getCell(placeholder).fullCellText();
 		}
@@ -64,37 +58,36 @@ public class Spreadsheet implements Grid
 	@Override
 	public int getRows()
 	{
-		// TODO Auto-generated method stub
 		return 20;
 	}
 
 	@Override
 	public int getCols()
 	{
-		// TODO Auto-generated method stub
 		return 12;
 	}
 
 	@Override
 	public Cell getCell(Location loc)
 	{	
-		return textexcell [loc.getCol()] [loc.getRow()];
+		return textexcell [loc.getCol()] [loc.getRow()]; //uses location interface to get the coordinates of the cell
 	}
 
 	@Override
-	public String getGridText()
+	public String getGridText() //formats the spreadsheet and prints
 	{		
-		String toptext = "   ";
+		String toptext = "   "; //prints the header
 		for (char c = 'A'; c <= 'L';c++){
 			toptext += "|" + c + "         ";	
 		}
 		toptext += "|";
-		String fulltext = "\n";		
+		
+		String fulltext = "\n";	//prints the cells	
 		for (int j = 0; j < 20; j++ ){
 			fulltext += ((j+1) + "   ").substring(0, 3);
 			fulltext += "|";
 			for (int k = 0; k < 12; k++){
-				fulltext += textexcell[k][j].abbreviatedCellText() + "|";
+				fulltext += textexcell[k][j].abbreviatedCellText() + "|"; //puts the 10 char cell text into each grid box
 			}			
 			fulltext += "\n";
 		}
@@ -102,23 +95,24 @@ public class Spreadsheet implements Grid
 	}
 	
 	public void clearCell (String [] input){
-		if (input.length > 1){
+		if (input.length > 1){ //if "clear" all
 			SpreadsheetLocation placeholder = new SpreadsheetLocation(input[1].toUpperCase());
-			textexcell [placeholder.getCol()] [placeholder.getRow()] = new EmptyCell ();
+			textexcell [placeholder.getCol()] [placeholder.getRow()] = new EmptyCell (); //make everything an empty cell
 		}
 		else {
 			for (int j = 0; j < 20; j++ ){
 				for (int k = 0; k < 12; k++){
-					textexcell[k][j] = new EmptyCell();
+					textexcell[k][j] = new EmptyCell(); //target the specific cell to empty
 				}			
 			}
 		}
 	}
 	
-	public void setCell (String [] input){
-		String testInput = input[2];
+	public void setCell (String [] input){ //assign the cell a value
+		
+		String testInput = input[2]; 
 		SpreadsheetLocation placeholder = new SpreadsheetLocation(input[0].toUpperCase());
-		if (testInput.charAt(0) == 34){ //if a text cell
+		if (testInput.charAt(0) == 34){ //if a text cell, take the string between the quotes and fill the array element with a text cell
 			String words = input[2].substring(1, (input[2].length()-1));
 			textexcell [placeholder.getCol()] [placeholder.getRow()] = new TextCell (words);
 		}
@@ -128,24 +122,23 @@ public class Spreadsheet implements Grid
 		else if (testInput.substring(testInput.length()-1).equals(")")){ //if a formula cell
 			textexcell [placeholder.getCol()] [placeholder.getRow()] = new FormulaCell (testInput);	
 		}
-		else { //value cell
+		else { // if a value cell
 			textexcell [placeholder.getCol()] [placeholder.getRow()] = new ValueCell (testInput);	
 		}
-		
 	}
 	
-	public String saveSpreadsheet (String fileName){
+	public String saveSpreadsheet (String fileName){ //takes the grid and saves it to a file in the text excel directory
 		
 		PrintStream outputFile;
 	     try {
-	            outputFile = new PrintStream(new File(fileName));               
+	            outputFile = new PrintStream(new File(fileName));  //write the new file            
 	     }
 
 	     catch (FileNotFoundException e) {   	 
-	            return "File not found: " + fileName;         
+	            return "File not found: " + fileName;   //throws error if file does not exist
 	     }
 
-	     outputFile.print(getGridText());
+	     outputFile.print(getGridText()); //print the grid text to the file
 
 	     outputFile.close();
 
@@ -157,13 +150,14 @@ public class Spreadsheet implements Grid
 	     Scanner inputFile;
 	     
 	     try {
-	            inputFile = new Scanner(new File(fileName));
+	            inputFile = new Scanner(new File(fileName)); //open up the file from the directory
 	     }
-	     catch (FileNotFoundException e) {
-	            return "File not found: " + fileName;
-	      }
 	     
-	     while (inputFile.hasNextLine()) {
+	     catch (FileNotFoundException e) {
+	            return "File not found: " + fileName; //throws error if file does not exist
+	     }
+	     
+	     while (inputFile.hasNextLine()) { //reads the file and prints it line by line
              String line = inputFile.nextLine();
              System.out.println(line);
          }
@@ -172,6 +166,5 @@ public class Spreadsheet implements Grid
 
 	     return "";
 	}
-	
-	
+
 }
