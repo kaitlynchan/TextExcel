@@ -13,7 +13,7 @@ private String words;
 	public String abbreviatedCellText() {
 		// TODO Auto-generated method stub
 		String abrv = words.substring(0, words.indexOf("."));
-		abrv += "          ";
+		abrv += "%         ";
 		return abrv.substring(0,10);
 	}
 

@@ -100,9 +100,22 @@ public class Spreadsheet implements Grid
 	}
 	
 	public void setCell (String [] input){
+		String testInput = input[2];
 		SpreadsheetLocation placeholder = new SpreadsheetLocation(input[0].toUpperCase());
-		String words = input[2].substring(1, (input[2].length()-1));
-		textexcell [placeholder.getCol()] [placeholder.getRow()] = new TextCell (words);
+		if (testInput.charAt(0) == 34){ //if a text cell
+			String words = input[2].substring(1, (input[2].length()-1));
+			textexcell [placeholder.getCol()] [placeholder.getRow()] = new TextCell (words);
+		}
+		else if (testInput.substring(testInput.length()-1).equals("%")){ //if a percent cell
+			textexcell [placeholder.getCol()] [placeholder.getRow()] = new PercentCell (testInput);	
+		}
+		else if (testInput.substring(testInput.length()-1).equals(")")){ //if a formula cell
+			textexcell [placeholder.getCol()] [placeholder.getRow()] = new FormulaCell (testInput);	
+		}
+		else { //value cell
+			textexcell [placeholder.getCol()] [placeholder.getRow()] = new ValueCell (testInput);	
+		}
+		
 	}
 	
 	

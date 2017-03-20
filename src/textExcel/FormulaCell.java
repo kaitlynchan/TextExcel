@@ -12,13 +12,20 @@ public class FormulaCell extends RealCell implements Cell {
 	@Override
 	public String abbreviatedCellText() {
 		// TODO Auto-generated method stub
-		return null;
+		String abrv = (words);
+		abrv += "          ";
+		return abrv.substring(0,10);
 	}
 
 	@Override
 	public String fullCellText() {
 		// TODO Auto-generated method stub
-		return null;
+		return (words);
 	}
+	
+	public double GetValue (String words){
+		return Double.parseDouble(words);
+	}
+
 
 }
