@@ -1,7 +1,12 @@
 package textExcel;
 
 public class RealCell implements Cell {
-
+	
+	private String words;
+	 
+	public RealCell (String words){
+		this.words = words;
+	}
 	@Override
 	public String abbreviatedCellText() {
 		// TODO Auto-generated method stub
