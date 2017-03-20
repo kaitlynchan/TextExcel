@@ -10,17 +10,17 @@ public class RealCell implements Cell {
 	@Override
 	public String abbreviatedCellText() {
 		// TODO Auto-generated method stub
-		return null;
+		return "          ";
 	}
 
 	@Override
 	public String fullCellText() {
 		// TODO Auto-generated method stub
-		return null;
+		return words;
 	}
 	
-	//public double getDoubleValue(){
-		//return 4.5;
-	//}
+	public double getDoubleValue(){
+		return Double.parseDouble(words);
+	}
 
 }

@@ -13,7 +13,7 @@ public class TextExcel
 
 	public static void main(String[] args)
 	{	
-		
+		System.out.println("hi");
 	    Scanner scanner = new Scanner (System.in);
 	    String input = scanner.nextLine();
 	    Spreadsheet sheet = new Spreadsheet (); 

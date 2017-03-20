@@ -7,18 +7,24 @@ public class ValueCell extends RealCell implements Cell {
 	public ValueCell (String words){
 		super (words);
 		this.words = words;
+
 	}
 	@Override
 	public String abbreviatedCellText() {
-		// TODO Auto-generated method stub
+		
+		
 		String abrv = GetValue(words)+"";
 		abrv += "          ";
 		return abrv.substring(0,10);
+		
 	}
 
 	@Override
 	public String fullCellText() {
-		// TODO Auto-generated method stub
+	
+		if (words.indexOf(".")<0){
+			return words;
+		}
 		return GetValue(words)+"";
 	}
 	
