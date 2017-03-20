@@ -18,7 +18,17 @@ public class TextExcel
 	    String input = scanner.nextLine();
 	    Spreadsheet sheet = new Spreadsheet (); 
 	    while (!input.equalsIgnoreCase("quit")) {
-	    	System.out.println(sheet.processCommand(input));
+	    	try {
+	    		System.out.println(sheet.processCommand(input));
+	    	}
+	    	catch (IndexOutOfBoundsException e) {
+	    		System.err.println("IndexOutOfBoundsException: enter in a valid cell");
+	    	} 
+	    	
+	    	catch (NumberFormatException e) {
+	    		System.err.println("NumberFormatException: enter in a valid cell or value");
+	    	} 
+	    	
 	    	input = scanner.nextLine();
 	    }
 	}

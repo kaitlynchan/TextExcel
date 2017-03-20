@@ -1,4 +1,6 @@
 package textExcel;
+import java.util.*;
+import java.io.*;
 
 // Update this file with your own code.
 
@@ -20,12 +22,26 @@ public class Spreadsheet implements Grid
 	@Override
 	public String processCommand(String command)
 	{	
+		
+		
 		if (command.length()==0){
 			return "";
 		}
 		
 		String [] input = command.split(" ",3);
 
+		if (!(command.indexOf("save")<0)){
+			saveSpreadsheet(input[1]);
+			return "saved to: " + input[1];
+
+		}
+		
+		if (!(command.indexOf("open")<0)){
+			openSpreadsheet(input[1]);
+			return "opened from: " + input[1];
+
+		}
+	
 		if (input[0].toLowerCase().equals("clear")){
 			// clear cell
 			clearCell(input);
@@ -116,6 +132,45 @@ public class Spreadsheet implements Grid
 			textexcell [placeholder.getCol()] [placeholder.getRow()] = new ValueCell (testInput);	
 		}
 		
+	}
+	
+	public String saveSpreadsheet (String fileName){
+		
+		PrintStream outputFile;
+	     try {
+	            outputFile = new PrintStream(new File(fileName));               
+	     }
+
+	     catch (FileNotFoundException e) {   	 
+	            return "File not found: " + fileName;         
+	     }
+
+	     outputFile.print(getGridText());
+
+	     outputFile.close();
+
+		return "";
+	}
+	
+	private String openSpreadsheet(String fileName) {
+
+	     Scanner inputFile;
+	     
+	     try {
+	            inputFile = new Scanner(new File(fileName));
+	     }
+	     catch (FileNotFoundException e) {
+	            return "File not found: " + fileName;
+	      }
+	     
+	     while (inputFile.hasNextLine()) {
+             String line = inputFile.nextLine();
+             System.out.println(line);
+         }
+
+	     inputFile.close();
+
+	     return "";
 	}
 	
 	
