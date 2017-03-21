@@ -11,7 +11,10 @@ private String words;
 	
 	@Override
 	public String abbreviatedCellText() {
-		String abrv = words.substring(0, words.indexOf("."));
+		String abrv = "";
+		if (words.indexOf(".")>0){
+			abrv = words.substring(0, words.indexOf("."));
+		}
 		abrv += "%         ";
 		return abrv.substring(0,10);
 	}

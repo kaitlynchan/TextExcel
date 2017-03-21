@@ -53,16 +53,16 @@ public class Spreadsheet implements Grid
 		}
 		
 		if (!(command.indexOf("save")<0)){ //save the spreadsheet
-			
-			return saveSpreadsheet(input[1]) + "\n"+ "saved to: " + input[1];
+			System.out.println("saved to: " + input[1]);
+			return saveSpreadsheet(input[1]);
 		}
 		
-		else if (!(command.indexOf("open")<0)){ //open up the spreadsheet
+		if (!(command.indexOf("open")<0)){ //open up the spreadsheet
 			System.out.println("opened from: " + input[1]);
 			return openSpreadsheet(input[1]); 
 		}
 	
-		else if (input[0].toLowerCase().equals("clear")){ //run the clearCell method
+		if (input[0].toLowerCase().equals("clear")){ //run the clearCell method
 			clearCell(input);
 			return getGridText();
 		}
@@ -168,6 +168,7 @@ public class Spreadsheet implements Grid
 	     for (int j = 0; j < 20; j++){  	 
 	    	 for (int k = 0; k < 12; k++){
 	    		 if (!(textexcell[k][j] instanceof EmptyCell)){ //checks to make sure only cells with data are saved.
+	    			 
 	    			 outputFile.println((char)(k+65) + "" + (j+1) + "," + textexcell[k][j].getClass().getSimpleName() + ","+ textexcell[k][j].fullCellText());
 	    			 //prints the cell to the output file in the format Location,Type,Full Value
 	    		 }
@@ -193,15 +194,15 @@ public class Spreadsheet implements Grid
 	     while (inputFile.hasNextLine()) { //reads the file line by line
              String [] fileContent = inputFile.nextLine().split(",", 3); //splits each line of the file into location, type, and full text value
              if (fileContent[1].equals("PercentCell")){
-            	 fileContent[2] = ((Double.parseDouble(fileContent[2])*100)+"").substring(0, ((Double.parseDouble(fileContent[2])*100)+"").indexOf("."))+"%";
-
+            	 String percentVal = "" + (Double.parseDouble(fileContent[2])*100);
+            	fileContent[2] = (percentVal)+"%";
              }
              setCell(fileContent); //uses previous setCell method to push each cell into the spreadsheet
              
          }
 	     
 	     inputFile.close();
-	     return "";
+	     return getGridText();
 	}
 
 }
