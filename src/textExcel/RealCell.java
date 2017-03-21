@@ -9,7 +9,6 @@ public class RealCell implements Cell {
 	}
 	@Override
 	public String abbreviatedCellText() {
-
 		return "          ";
 	}
 
@@ -20,7 +19,7 @@ public class RealCell implements Cell {
 	}
 	
 	public double getDoubleValue(String words){
-		return Double.parseDouble(words);
+		return Double.parseDouble(words); //super method
 	}
 
 }

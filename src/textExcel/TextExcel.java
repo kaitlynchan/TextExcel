@@ -31,7 +31,6 @@ public class TextExcel
 	    	catch (NumberFormatException e) {
 	    		System.err.println("NumberFormatException: enter in a valid cell or value"); //catches error
 	    	} 
-	    	
 	    	input = scanner.nextLine();
 	    }
 	}

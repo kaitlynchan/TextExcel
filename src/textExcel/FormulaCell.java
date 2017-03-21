@@ -11,15 +11,13 @@ public class FormulaCell extends RealCell implements Cell {
 	
 	@Override
 	public String abbreviatedCellText() {
-
 		String abrv = (words);
 		abrv += "          ";
-		return abrv.substring(0,10);
+		return abrv.substring(0,10); //pads, then substrings to 10 char
 	}
 
 	@Override
 	public String fullCellText() {
-		// TODO Auto-generated method stub
 		return (words);
 	}
 	

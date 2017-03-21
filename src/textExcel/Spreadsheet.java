@@ -15,7 +15,7 @@ public class Spreadsheet implements Grid
 		textexcell = new Cell [12] [20];
 		for (int i = 0; i < 12; i++){
 			for (int j = 0; j< 20; j++){
-				textexcell [i][j] = new EmptyCell();
+				textexcell [i][j] = new EmptyCell(); //initializes with all empty cells
 			}
 		}
 	}
@@ -24,13 +24,14 @@ public class Spreadsheet implements Grid
 	public String processCommand(String command)
 	{	
 
-		if (command.length()==0){ //if no command
+		if (command.length()==0){ //if no command, catches 
 			return "";
 		}
 
 		String [] input = command.split(" ",3); //divide up command input into an array
 		boolean historySave = false;
 		if(input[0].equals("history")){
+			
 			//run command saving program
 			if (input[1].equals("start")){
 				//start saving history
@@ -79,13 +80,13 @@ public class Spreadsheet implements Grid
 	}
 
 	@Override
-	public int getRows()
+	public int getRows() //number of rows in array
 	{
 		return 20;
 	}
 
 	@Override
-	public int getCols()
+	public int getCols() //number of columns in array
 	{
 		return 12;
 	}
@@ -114,7 +115,7 @@ public class Spreadsheet implements Grid
 			}			
 			fulltext += "\n";
 		}
-		return toptext+fulltext;
+		return toptext+fulltext; //returns full spreadsheet
 	}
 	
 	public void clearCell (String [] input){
@@ -151,7 +152,7 @@ public class Spreadsheet implements Grid
 	}
 	
 	public String historySave(int n){
-		return "hi";
+		return "hi"; //still working on extra credit :)
 	}
 
 	public String saveSpreadsheet (String fileName){ //takes the grid and saves it to a file in the text excel directory
@@ -193,7 +194,7 @@ public class Spreadsheet implements Grid
 	     
 	     while (inputFile.hasNextLine()) { //reads the file line by line
              String [] fileContent = inputFile.nextLine().split(",", 3); //splits each line of the file into location, type, and full text value
-             if (fileContent[1].equals("PercentCell")){
+             if (fileContent[1].equals("PercentCell")){ //changes the formatting if it is a percent cell for proper use of setCell()
             	 String percentVal = "" + (Double.parseDouble(fileContent[2])*100);
             	fileContent[2] = (percentVal)+"%";
              }
@@ -202,7 +203,7 @@ public class Spreadsheet implements Grid
          }
 	     
 	     inputFile.close();
-	     return getGridText();
+	     return getGridText(); //returns the opened spreadsheet
 	}
 
 }

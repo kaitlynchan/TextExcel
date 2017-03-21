@@ -13,7 +13,7 @@ private String words;
 	public String abbreviatedCellText() {
 		String abrv = "";
 		if (words.indexOf(".")>0){
-			abrv = words.substring(0, words.indexOf("."));
+			abrv = words.substring(0, words.indexOf(".")); //checking if there is a decimal in the percentage, and truncates the decimal
 		}
 		abrv += "%         ";
 		return abrv.substring(0,10);
@@ -21,8 +21,7 @@ private String words;
 
 	@Override
 	public String fullCellText() {
-
-		return GetValue(words)+"";
+		return GetValue(words)+""; //returns string version of double
 	}
 	
 	public double GetValue (String words){

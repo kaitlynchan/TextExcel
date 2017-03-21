@@ -28,7 +28,7 @@ public class ValueCell extends RealCell implements Cell {
 	}
 	
 	public double GetValue (String words){
-		return super.getDoubleValue(words);
+		return super.getDoubleValue(words); //uses super method to get double value
 	}
 
 }
