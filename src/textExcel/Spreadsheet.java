@@ -4,12 +4,12 @@ import java.io.*;
 
 // Update this file with your own code.
 
+
 public class Spreadsheet implements Grid
 {	
 	//create array of Cell objects called textexcell
-	
 	private Cell [] [] textexcell;
-	
+
 	//Spreadsheet Constructor
 	public Spreadsheet () {
 		textexcell = new Cell [12] [20];
@@ -19,60 +19,31 @@ public class Spreadsheet implements Grid
 			}
 		}
 	}
-	
 	@Override
 	public String processCommand(String command)
 	{	
-
 		if (command.length()==0){ //if no command, catches 
 			return "";
 		}
 
 		String [] input = command.split(" ",3); //divide up command input into an array
-		boolean historySave = false;
-		if(input[0].equals("history")){
-			
-			//run command saving program
-			if (input[1].equals("start")){
-				//start saving history
-				historySave = true;
-				historySave(Integer.parseInt(input[2]));
-			}
-			
-			else if (input[1].equals("display")){
-				//display history
-			}
-			
-			else if (input[1].equals("clear")){
-				//display history
-			}
-			
-			else{
-				//stop history keeping
-				historySave = false;
-			}
-		}
 		
 		if (!(command.indexOf("save")<0)){ //save the spreadsheet
 			System.out.println("saved to: " + input[1]);
 			return saveSpreadsheet(input[1]);
 		}
-		
 		if (!(command.indexOf("open")<0)){ //open up the spreadsheet
 			System.out.println("opened from: " + input[1]);
 			return openSpreadsheet(input[1]); 
 		}
-	
 		if (input[0].toLowerCase().equals("clear")){ //run the clearCell method
 			clearCell(input);
 			return getGridText();
 		}
-		
 		else if (input.length > 2){ //run the setCell method to assign value
 			setCell(input);
 			return getGridText();
 		}
-		
 		else { //run the getCell method to inspect cell
 			SpreadsheetLocation placeholder = new SpreadsheetLocation(input[0].toUpperCase());
 			return getCell(placeholder).fullCellText();
@@ -151,31 +122,24 @@ public class Spreadsheet implements Grid
 		}
 	}
 	
-	public String historySave(int n){
-		return "hi"; //still working on extra credit :)
-	}
 
 	public String saveSpreadsheet (String fileName){ //takes the grid and saves it to a file in the text excel directory
 		
-		PrintStream outputFile;
+	     PrintStream outputFile;
 	     try {
 	            outputFile = new PrintStream(new File(fileName));  //write the new file            
 	     }
-
 	     catch (FileNotFoundException e) {   	 
 	            return "File not found: " + fileName;   //throws error if file does not exist
 	     }
-	     
 	     for (int j = 0; j < 20; j++){  	 
 	    	 for (int k = 0; k < 12; k++){
-	    		 if (!(textexcell[k][j] instanceof EmptyCell)){ //checks to make sure only cells with data are saved.
-	    			 
+	    		 if (!(textexcell[k][j] instanceof EmptyCell)){ //checks to make sure only cells with data are saved.		 
 	    			 outputFile.println((char)(k+65) + "" + (j+1) + "," + textexcell[k][j].getClass().getSimpleName() + ","+ textexcell[k][j].fullCellText());
 	    			 //prints the cell to the output file in the format Location,Type,Full Value
 	    		 }
 			 }	 
 	     }
-	     
 	     outputFile.close(); //closes the file
 		 return "";
 	}
@@ -183,27 +147,22 @@ public class Spreadsheet implements Grid
 	private String openSpreadsheet(String fileName) {
 		
 	     Scanner inputFile;
-	     
 	     try {
 	            inputFile = new Scanner(new File(fileName)); //open up the file from the directory
 	     }
-	     
 	     catch (FileNotFoundException e) {
 	            return "File not found: " + fileName; //throws error if file does not exist
 	     }
-	     
 	     while (inputFile.hasNextLine()) { //reads the file line by line
              String [] fileContent = inputFile.nextLine().split(",", 3); //splits each line of the file into location, type, and full text value
              if (fileContent[1].equals("PercentCell")){ //changes the formatting if it is a percent cell for proper use of setCell()
             	 String percentVal = "" + (Double.parseDouble(fileContent[2])*100);
             	fileContent[2] = (percentVal)+"%";
              }
-             setCell(fileContent); //uses previous setCell method to push each cell into the spreadsheet
-             
+             setCell(fileContent); //uses previous setCell method to push each cell into the spreadsheet   
          }
 	     
 	     inputFile.close();
 	     return getGridText(); //returns the opened spreadsheet
 	}
-
 }
