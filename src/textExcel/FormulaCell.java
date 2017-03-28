@@ -7,6 +7,7 @@ public class FormulaCell extends RealCell implements Cell {
 	public FormulaCell (String words){ //not functional yet
 		super (words);
 		this.words = words;
+		
 	}
 	
 	@Override
@@ -28,6 +29,13 @@ public class FormulaCell extends RealCell implements Cell {
 		String operator= "";
 		String operand2 = "";
 		int i = 0;
+		for (int j = 0; j <= formulaParts.length;j++){
+			if (isCell(formulaParts[j])){
+				SpreadsheetLocation placeholder = new SpreadsheetLocation(formulaParts[j].toUpperCase());
+				
+				formulaParts [j] = Spreadsheet.getCell(placeholder).getFullText;
+			}
+		}
 		String finalAnswer = formulaParts [i+1];
 		while (i <= formulaParts.length - 5){
 			operand1 = finalAnswer;
@@ -38,8 +46,16 @@ public class FormulaCell extends RealCell implements Cell {
 		}
 		return Double.parseDouble(finalAnswer);
 	}
+	
+	public boolean isCell (String test){
+	
+		if (Character.isLetter(test.charAt(0)) && Character.isDigit(test.charAt(1))) {
+			return true;
+		}
+		else return false;
+	}
     
-    public static String Calculate(String operand2, String operand1, String operator){
+    public String Calculate(String operand2, String operand1, String operator){
     	//this method takes in parsed components and performs calculations
     	String calculateAnswer = " ";
     	double number2 = Double.parseDouble(operand2);
@@ -47,19 +63,15 @@ public class FormulaCell extends RealCell implements Cell {
 
     	//calls method depending on operator
     	if (operator.equals("+")){  		
-    		
     		calculateAnswer = number1 + number2 + "";
     	}
     	else if (operator.equals("-")){
-    
     		calculateAnswer = number1 - number2 + "";
     	}
     	else if (operator.equals("*")){
-    		
     		calculateAnswer = number1*number2+"";
     	}
     	else {
-    		
     		calculateAnswer = number1/number2+"";
     	}   
 		return calculateAnswer;
