@@ -27,6 +27,7 @@ public class Spreadsheet implements Grid
 		}
 
 		String [] input = command.split(" ",3); //divide up command input into an array
+		String cell = input[0];
 		
 		if (!(command.indexOf("save")<0)){ //save the spreadsheet
 			System.out.println("saved to: " + input[1]);
@@ -41,6 +42,7 @@ public class Spreadsheet implements Grid
 			return getGridText();
 		}
 		else if (input.length > 2){ //run the setCell method to assign value
+		
 			setCell(input);
 			return getGridText();
 		}
@@ -115,7 +117,7 @@ public class Spreadsheet implements Grid
 			textexcell [placeholder.getCol()] [placeholder.getRow()] = new PercentCell (testInput);	
 		}
 		else if (testInput.substring(testInput.length()-1).equals(")")){ //if a formula cell
-			textexcell [placeholder.getCol()] [placeholder.getRow()] = new FormulaCell (testInput);	
+			textexcell [placeholder.getCol()] [placeholder.getRow()] = new FormulaCell (testInput, textexcell);	
 		}
 		else { // if a value cell
 			textexcell [placeholder.getCol()] [placeholder.getRow()] = new ValueCell (testInput);	
